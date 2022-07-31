@@ -12,8 +12,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var canAddOperation = false
     private var canAddDemical = false
-    private var alreadyAddDemical = false
-    private var alreadyAddDemicalPrevious = false
+    private var addedDemical = false
+    private var addedDemicalPrevious = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,13 +29,13 @@ class MainActivity : AppCompatActivity() {
                         binding.tvWorkings.append(view.text)
                         canAddDemical = false
                         canAddOperation = false
-                        alreadyAddDemical = true
+                        addedDemical = true
                     }
             }
             else {
                 binding.tvWorkings.append(view.text)
                 canAddOperation = true
-                if (!alreadyAddDemical) canAddDemical = true
+                if (!addedDemical) canAddDemical = true
             }
         }
     }
@@ -43,10 +43,10 @@ class MainActivity : AppCompatActivity() {
         if(binding.tvWorkings.length() > 0)
             if (view is Button && canAddOperation && isNumber(binding.tvWorkings.text.last())){
                 binding.tvWorkings.append(view.text)
-                if (alreadyAddDemical) alreadyAddDemicalPrevious = true
-                else alreadyAddDemicalPrevious = false
+                if (addedDemical) addedDemicalPrevious = true
+                else addedDemicalPrevious = false
                 canAddOperation = false
-                alreadyAddDemical = false
+                addedDemical = false
                 canAddDemical = false
             }
     }
@@ -55,8 +55,8 @@ class MainActivity : AppCompatActivity() {
         binding.tvResults.text = ""
         canAddOperation = false
         canAddDemical = false
-        alreadyAddDemical = false
-        alreadyAddDemicalPrevious = false
+        addedDemical = false
+        addedDemicalPrevious = false
     }
     fun backspaceAction(view: View) {
         val length = binding.tvWorkings.length()
@@ -66,13 +66,13 @@ class MainActivity : AppCompatActivity() {
                 '+','-','x','/' -> {
                     binding.tvWorkings.text = binding.tvWorkings.text.subSequence(0, length - 1)
                     canAddOperation = true
-                    if (!alreadyAddDemicalPrevious) canAddDemical = true
+                    if (!addedDemicalPrevious) canAddDemical = true
                 }
                 '.' -> {
                     binding.tvWorkings.text = binding.tvWorkings.text.subSequence(0, length - 1)
                     canAddOperation = true
                     canAddDemical = true
-                    alreadyAddDemical = false
+                    addedDemical = false
                 }
                 else -> binding.tvWorkings.text = binding.tvWorkings.text.subSequence(0, length - 1)
             }
